@@ -1,0 +1,119 @@
+spring:
+  application:
+    name: com.mycarx.wxweb
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      maxInactiveIntervalInSeconds: 7200
+      namespace: mycarx-wxweb-session
+  http:
+    encoding:
+      charset: UTF-8
+    multipart:
+      max-file-size: 50Mb
+      max-request-size: 200Mb
+  datasource:
+    username: userName
+    password: password
+    url: "jdbc:mysql://localhost:3306/database?useUnicode=true&characterEncoding=utf8"
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    maxActive: 50
+    initialSize: 10
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    poolPreparedStatements: false
+    maxPoolPreparedStatementPerConnectionSize: 50
+  jpa:
+    database: mysql
+    properties:
+      hibername:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        format_sql: true
+        show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: com.mycarx.common.ImprovedNamingStrategy
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    pool:
+      max-active: 8
+      min-idle: 0
+      max-idle: 8
+      max-wait: -1
+    database: 0
+    timeout: 30
+
+logging:
+  config: classpath:logback.xml
+  level:
+    root: info
+    org:
+      springframework:
+        web: info
+      hibernate: info
+
+server:
+  host: 127.0.0.1
+  port: 9024
+  connection-timeout: 5000
+  tomcat:
+    max-threads: 100
+    min-spare-threads: 20
+
+cache: memcache
+
+memcache:
+  host: 127.0.0.1:11211
+redis:
+  host: 127.0.0.1
+  port: 6379
+  pool:
+    max-active: 8
+    min-idle: 0
+    max-idle: 8
+    max-wait: -1
+  database: 1
+  timeout: 30
+
+settings:
+  environment: DEV
+  webHost: http://127.0.0.1:9024
+  staticFileUrlPrefix: http://127.0.0.1
+  staticFileSaveRoot: /opt/car/static/appfiles
+  weChatAppId: weChatAppId
+  weChatAppSecret: weChatAppSecret
+  weChatPayMchId: weChatPayMchId
+  weChatPayKey: weChatPayKey
+  weChatPayNotifyUrl: ${settings.webHost}/wxPay/payNotify
+  weChatWebName: weChatWebName
+  weChatMessageToken: weChatMessageToken
+  weChatMessageAESKey: weChatMessageAESKey
+  weChatAppPushHost: http://127.0.0.1:9026/push
+  smsAppKey: smsAppKey
+  smsAppSecret: smsAppSecret
+  smsAppSign: smsAppSign
+  smsTemplateId: smsTemplateId
+  smsCodeName: code
+  smsValidDuration: 600            #验证码有效时长，单位：秒
+  smsMaxTimesInDuration: 10        #有效期内最多只能发送几次短信验证码
+  baiDuMapAppKey: baiDuMapAppKey
+  baiDuTTSAppId: baiDuTTSAppId
+  baiDuTTSAppKey: baiDuTTSAppKey
+  baiDuTTSAppSecret: baiDuTTSAppSecret
+  shareTitle: shareTitle
+  shareDesc: shareDesc
+  shareUrl: ${settings.webHost}/other/share
+  shareIcon: ${settings.staticFileUrlPrefix}/images/logo_200.png
+  shareQrCodeImg: ${settings.staticFileUrlPrefix}/images/qr_code.jpg
+
+
